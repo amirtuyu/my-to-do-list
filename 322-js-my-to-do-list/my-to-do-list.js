@@ -22,16 +22,22 @@ function showLiToRepository() {
       list.innerHTML += `<li id="${Li.id}">${Li.liname}<span class="material-symbols-outlined Icon-animation-Text">chevron_right</span><span class="material-symbols-outlined closeBtn">delete</span></li>`;
       changTargetText();
       function changTargetText() {
-        let elementSpan = document.createElement("span");
+         let elementSpan = document.createElement("span");
         elementSpan.classList.add("Text");
         let elementDivShowIcon = document.createElement("div");
         elementDivShowIcon.classList.add("show-icon");
         elementDivShowIcon.innerHTML =
           '<span class="material-symbols-outlined icon-edit">edit</span>';
+        let elementDivShowTimer =document.createElement('div')
+        elementDivShowTimer.classList.add('Timer')
+        let containerTimerAndIconEdite =document.createElement('div');
+        containerTimerAndIconEdite.classList.add('containerTimerAndIconEdite')
+        containerTimerAndIconEdite.appendChild(elementDivShowTimer)
+        containerTimerAndIconEdite.appendChild(elementDivShowIcon)
         let elementDivShowText = document.createElement("div");
         elementDivShowText.classList.add("show-Text");
         elementDivShowText.innerText = Li.textarea;
-        elementSpan.appendChild(elementDivShowIcon);
+        elementSpan.appendChild(containerTimerAndIconEdite);
         elementSpan.appendChild(elementDivShowText);
         list.appendChild(elementSpan);
       }
@@ -178,10 +184,17 @@ function changText() {
         elementDivShowIcon.classList.add("show-icon");
         elementDivShowIcon.innerHTML =
           '<span class="material-symbols-outlined icon-edit">edit</span>';
+        let elementDivShowTimer =document.createElement('div')
+        elementDivShowTimer.classList.add('Timer')
+        elementDivShowTimer.innerText ='7s'
+        let containerTimerAndIconEdite =document.createElement('div');
+        containerTimerAndIconEdite.classList.add('containerTimerAndIconEdite')
+        containerTimerAndIconEdite.appendChild(elementDivShowTimer)
+        containerTimerAndIconEdite.appendChild(elementDivShowIcon)
         let elementDivShowText = document.createElement("div");
         elementDivShowText.classList.add("show-Text");
         elementDivShowText.innerText = TextTarget;
-        elementSpan.appendChild(elementDivShowIcon);
+        elementSpan.appendChild(containerTimerAndIconEdite);
         elementSpan.appendChild(elementDivShowText);
         LiTarget.parentElement.insertBefore(elementSpan, LiTarget.nextSibling);
         gsap.fromTo(
@@ -299,9 +312,10 @@ function changSetingText() {
 }
 function EditText() {
   if (event.target.classList.contains("icon-edit")) {
-    let valueText = event.target.parentElement.nextSibling.innerText;
+    let valueText = event.target.parentElement.parentElement.nextSibling.innerText;
+    console.log(valueText)
     let LiTarget =
-      event.target.parentElement.parentElement.previousElementSibling;
+      event.target.parentElement.parentElement.parentElement.previousElementSibling;
     LiTarget.nextElementSibling.remove();
     changTextarea(LiTarget, valueText);
   }

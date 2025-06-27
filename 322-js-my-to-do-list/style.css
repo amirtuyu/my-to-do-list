@@ -131,26 +131,38 @@ body {
   background-color: rgb(134, 248, 210);
   border-radius: 5px;
   overflow: hidden;
- 
 }
 .Text .show-icon {
   width: 100%;
   display: flex;
   justify-content: end;
-  margin-top: 5px;
+  margin-top: -18.5px;
   visibility: hidden;
+  margin-bottom: 15px;
+  margin-left: -10px;
 }
 .Text:hover .show-icon {
   visibility: initial;
 }
-.Text .show-Text {
-  width: 100%;
-  padding-left: 10px;
-  margin-bottom: 15px;
-}
 .aktive-icon-Text {
   transform: rotate(-270deg);
   transition: all 0.3s;
+}
+.Text .Timer{
+  margin-top: 1px;
+  margin-left: 7px;
+  font-size: 15px;
+  color: rgb(87, 84, 84);
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  visibility: hidden;
+}
+.Text:hover .Timer{
+  visibility: initial;
+}
+.Text .show-Text{
+  margin-left: 7px;
+  font-size: 16px;
+  margin-top: 25px;
 }
 @keyframes shake {
   0% {
