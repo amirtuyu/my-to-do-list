@@ -22,7 +22,7 @@ document.body.addEventListener("mouseover", (event) => {
     let DateOfBirth = getPropertiUser("DateOfBirth", IdLiTarget);
     Timer.innerText = 10;
     DateNew = Math.floor(new Date() / 1000);
-    const Time=TimeCalculation(DateOfBirth, DateNew);
+    const Time = TimeCalculation(DateOfBirth, DateNew);
     Timer.innerText = Time;
   }
 });
@@ -35,24 +35,12 @@ function showLiToRepository() {
       list.innerHTML += `<li id="${Li.id}">${Li.liname}<span class="material-symbols-outlined Icon-animation-Text">chevron_right</span><span class="material-symbols-outlined closeBtn">delete</span></li>`;
       changTargetText();
       function changTargetText() {
-        let elementSpan = document.createElement("span");
-        elementSpan.classList.add("Text");
-        let elementDivShowIcon = document.createElement("div");
-        elementDivShowIcon.classList.add("show-icon");
-        elementDivShowIcon.innerHTML =
-          '<span class="material-symbols-outlined icon-edit">edit</span>';
-        let elementDivShowTimer = document.createElement("div");
-        elementDivShowTimer.classList.add("Timer");
-        elementDivShowTimer.innerText = 10;
-        let containerTimerAndIconEdite = document.createElement("div");
-        containerTimerAndIconEdite.classList.add("containerTimerAndIconEdite");
-        containerTimerAndIconEdite.appendChild(elementDivShowTimer);
-        containerTimerAndIconEdite.appendChild(elementDivShowIcon);
-        let elementDivShowText = document.createElement("div");
-        elementDivShowText.classList.add("show-Text");
-        elementDivShowText.innerText = Li.textarea;
-        elementSpan.appendChild(containerTimerAndIconEdite);
-        elementSpan.appendChild(elementDivShowText);
+       let elementIcon =createElement('span',"material-symbols-outlined","icon-edit","edit","","")
+        let elementContainerIcon =createElement("div","show-icon","","",elementIcon,"")
+        let elementDivShowTimer =createElement("div","Timer","",'0seconds',"","")
+        let containerTimerAndIconEdite = createElement("div","containerTimerAndIconEdite","","",elementDivShowTimer,elementContainerIcon);
+        let elementDivShowText = createElement("div","show-Text","",Li.textarea,"","")
+        let elementSpan = createElement("span", "Text","","",containerTimerAndIconEdite,elementDivShowText);
         list.appendChild(elementSpan);
       }
     }
@@ -192,24 +180,12 @@ function changText() {
 
       changTargetText();
       function changTargetText() {
-        let elementSpan = document.createElement("span");
-        elementSpan.classList.add("Text");
-        let elementDivShowIcon = document.createElement("div");
-        elementDivShowIcon.classList.add("show-icon");
-        elementDivShowIcon.innerHTML =
-          '<span class="material-symbols-outlined icon-edit">edit</span>';
-        let elementDivShowTimer = document.createElement("div");
-        elementDivShowTimer.classList.add("Timer");
-        elementDivShowTimer.innerText = "7s";
-        let containerTimerAndIconEdite = document.createElement("div");
-        containerTimerAndIconEdite.classList.add("containerTimerAndIconEdite");
-        containerTimerAndIconEdite.appendChild(elementDivShowTimer);
-        containerTimerAndIconEdite.appendChild(elementDivShowIcon);
-        let elementDivShowText = document.createElement("div");
-        elementDivShowText.classList.add("show-Text");
-        elementDivShowText.innerText = TextTarget;
-        elementSpan.appendChild(containerTimerAndIconEdite);
-        elementSpan.appendChild(elementDivShowText);
+        let elementIcon =createElement('span',"material-symbols-outlined","icon-edit","edit","","")
+        let elementContainerIcon =createElement("div","show-icon","","",elementIcon,"")
+        let elementDivShowTimer =createElement("div","Timer","",'0seconds',"","")
+        let containerTimerAndIconEdite = createElement("div","containerTimerAndIconEdite","","",elementDivShowTimer,elementContainerIcon);
+        let elementDivShowText = createElement("div","show-Text","",TextTarget,"","")
+        let elementSpan = createElement("span", "Text","","",containerTimerAndIconEdite,elementDivShowText);
         LiTarget.parentElement.insertBefore(elementSpan, LiTarget.nextSibling);
         gsap.fromTo(
           elementSpan,
@@ -229,7 +205,7 @@ function changText() {
         for (let Li of arrayRepository) {
           if (Li.id == idLi) {
             Li.textarea = TextTarget;
-            Li.DateOfBirth =DateOfBirth;
+            Li.DateOfBirth = DateOfBirth;
           }
         }
         saveRepository();
@@ -357,23 +333,37 @@ function TimeCalculation(DateOfBirth, DateNew) {
   let secondsTime = DateNew - DateOfBirth;
 
   if (secondsTime >= 0 && secondsTime < 60) {
-    return secondsTime + 'seconds';
+    return secondsTime + "seconds";
+  } else if (secondsTime >= 60 && secondsTime < 3600) {
+    return Math.floor(secondsTime / 60) + "minutes";
+  } else if (secondsTime >= 3600 && secondsTime < 86400) {
+    return Math.floor(secondsTime / 3600) + "hours";
+  } else if (secondsTime >= 86400 && secondsTime < 2592000) {
+    return Math.floor(secondsTime / 86400) + "days";
+  } else if (secondsTime >= 2592000 && secondsTime < 31536000) {
+    return Math.floor(secondsTime / 2592000) + "months";
+  } else if (secondsTime >= 31536000) {
+    return Math.floor(secondsTime / 31536000) + "years";
   }
-  else if(secondsTime>=60 &&secondsTime<3600){
-    return Math.floor(secondsTime/60) +'minutes'
+}
+function createElement(typeOfElement, classOfElement1,classOfElement2, valueOfInner,appendChild1,appendChild2) {
+  let element = document.createElement(typeOfElement);
+  if (classOfElement1) {
+    element.classList.add(classOfElement1);
   }
-  else if(secondsTime>=3600&&secondsTime<86400){
-     return Math.floor(secondsTime/3600) +'hours'
+    if (classOfElement2) {
+    element.classList.add(classOfElement2);
   }
-  else if(secondsTime>=86400&&secondsTime<2592000){
-     return Math.floor(secondsTime/86400) +'days'
+  if (valueOfInner) {
+    element.innerHTML = valueOfInner;
   }
-  else if(secondsTime>=2592000&&secondsTime<31536000){
-    return Math.floor(secondsTime/2592000) +'months'
+  if(appendChild1){
+    element.appendChild(appendChild1)
   }
-  else if(secondsTime>=31536000){
-    return Math.floor(secondsTime/31536000) +'years'
+   if(appendChild2){
+    element.appendChild(appendChild2)
   }
+  return element;
 }
 class prsontodolist {
   constructor(id, liname, textarea, flaganimation, DateOfBirth) {
